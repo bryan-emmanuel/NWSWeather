@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NWS Weather</string>
+
+    <string name="label_id">Id</string>
+    <string name="label_grid_id">Grid Id</string>
+    <string name="label_grid_x">Grid X</string>
+    <string name="label_grid_y">Grid Y</string>
+</resources>
