@@ -1,17 +1,19 @@
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
-    compileSdk = 32
+    namespace = "com.piusvelte.nwsweather"
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.piusvelte.nwsweather"
-        minSdk = 21
-        targetSdk = 32
+        minSdk = 24
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
 
@@ -31,66 +33,59 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
-
     buildFeatures {
         viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
 }
 
 dependencies {
-    implementation(AndroidX.coreKtx)
-    implementation(AndroidX.appcompat)
-    implementation(AndroidX.fragmentKtx)
-    implementation(AndroidX.lifecycleKtx)
-    implementation(AndroidX.liveDataKtx)
-    implementation(AndroidX.viewModelKtx)
-    implementation(Material.material)
-    implementation(Material.composeAdapter)
-    implementation(Google.playServicesLocation)
-    testImplementation(JUnit.junit)
-    androidTestImplementation(Test.junit)
-    androidTestImplementation(Test.espressoCore)
+    implementation(libs.androidx.coreKtx)
+    implementation(libs.androidx.appcompat)
+    implementation(platform(libs.androidx.composeBom))
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.fragmentKtx)
+    implementation(libs.androidx.lifecycle.runtimeKtx)
+    implementation(libs.androidx.lifecycle.livedataKtx)
+    implementation(libs.androidx.lifecycle.viewmodelKtx)
+    implementation(libs.google.material)
+    implementation(libs.google.playServicesLocation)
+    implementation(libs.jetbrains.kotlinx.coroutinesPlayServices)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.espresso.espressoCore)
 
-    implementation(Dagger.hiltAndroid)
-    kapt(Dagger.hiltCompiler)
+    implementation(libs.dagger.hiltAndroid)
+    ksp(libs.dagger.hiltCompiler)
 
-    implementation(platform(OkHttp.bom))
-    implementation(OkHttp.okhttp)
-    implementation(OkHttp.logging)
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp.okhttp)
+    implementation(libs.okhttp.logging)
 
-    implementation(Retrofit.retrofit)
-    implementation(Retrofit.converterGson)
+    implementation(libs.retrofit.retrofit)
+    implementation(libs.retrofit.converterGson)
 
-    implementation(IntelliJ.coroutines)
-    implementation(IntelliJ.playServicesKts)
+    implementation(libs.bumptech.glide)
+    ksp(libs.bumptech.compiler)
 
-    implementation(Glide.glide)
-    kapt(Glide.compiler)
+    implementation(libs.androidx.roomRuntime)
+    annotationProcessor(libs.androidx.roomCompiler)
+    ksp(libs.androidx.roomCompiler)
+    implementation(libs.androidx.roomKtx)
 
-    debugImplementation(Chucker.debug)
-    releaseImplementation(Chucker.release)
-
-    implementation(Room.runtime)
-    annotationProcessor(Room.compiler)
-    kapt(Room.compiler)
-    implementation(Room.ktx)
-
-    implementation(AndroidX.composeActivity)
-    implementation(AndroidX.composeAnimation)
-    implementation(AndroidX.composeMaterial)
-    implementation(AndroidX.composeTooling)
-    implementation(AndroidX.composeViewModel)
-    androidTestImplementation(AndroidX.composeTest)
+    androidTestImplementation(platform(libs.androidx.composeBom))
+    androidTestImplementation(libs.androidx.compose.uiTestJunit)
+    debugImplementation(libs.androidx.compose.uiTooling)
+    debugImplementation(libs.androidx.compose.uiTestManifest)
 
     implementation(project(":api"))
     implementation(project(":data"))
     implementation(project(":data-nws"))
     implementation(project(":data-local"))
     implementation(project(":domain"))
-}
-
-kapt {
-    correctErrorTypes = true
 }

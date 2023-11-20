@@ -1,37 +1,14 @@
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
-    compileSdk = 32
+    namespace = "com.piusvelte.data.local"
+    compileSdk = 34
 
-    defaultConfig {
-        minSdk = 21
-        targetSdk = 32
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += mapOf(
-                    "room.schemaLocation" to "$projectDir/schemas",
-                    "room.incremental" to "true",
-                    "room.expandProjection" to "true"
-                )
-            }
-        }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,14 +16,23 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
+    }
 }
 
 dependencies {
-    implementation(Dagger.hiltAndroid)
-    kapt(Dagger.hiltCompiler)
+    implementation(libs.dagger.hiltAndroid)
+    ksp(libs.dagger.hiltCompiler)
 
-    implementation(Room.runtime)
-    annotationProcessor(Room.compiler)
-    kapt(Room.compiler)
-    implementation(Room.ktx)
+    implementation(platform(libs.androidx.composeBom))
+    implementation(libs.androidx.compose.runtime)
+
+    implementation(libs.androidx.roomRuntime)
+    annotationProcessor(libs.androidx.roomCompiler)
+    ksp(libs.androidx.roomCompiler)
+    implementation(libs.androidx.roomKtx)
 }

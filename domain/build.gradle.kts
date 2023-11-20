@@ -1,44 +1,37 @@
+@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    kotlin("kapt")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.devtools.ksp)
 }
 
 android {
-    compileSdk = 32
+    namespace = "com.piusvelte.domain"
+    compileSdk = 34
 
-    defaultConfig {
-        minSdk = 21
-        targetSdk = 32
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
 }
 
 dependencies {
-    implementation(Dagger.hiltAndroid)
-    kapt(Dagger.hiltCompiler)
+    implementation(libs.dagger.hiltAndroid)
+    ksp(libs.dagger.hiltCompiler)
 
-    implementation(AndroidX.liveDataKtx)
+    implementation(platform(libs.androidx.composeBom))
+    implementation(libs.androidx.compose.runtime)
 
-    implementation(IntelliJ.coroutines)
+    implementation(libs.androidx.lifecycle.livedataKtx)
 
     implementation(project(":data"))
     implementation(project(":data-nws"))

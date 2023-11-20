@@ -8,6 +8,7 @@ import com.piusvelte.data.local.entity.Point
 @Database(
     entities = [Point::class],
     version = 1,
+    exportSchema = false,
 )
 abstract class NwsDatabase : RoomDatabase() {
     abstract fun pointDao(): PointDao

@@ -1,8 +1,8 @@
 pluginManagement {
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
+        gradlePluginPortal()
     }
 }
 dependencyResolutionManagement {
@@ -12,10 +12,11 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "NWS Weather"
-include ':app'
-include ':api'
-include ':data'
-include ':data-nws'
-include ':data-local'
-include ':domain'
+include(":app")
+include(":api")
+include(":data")
+include(":data-nws")
+include(":data-local")
+include(":domain")

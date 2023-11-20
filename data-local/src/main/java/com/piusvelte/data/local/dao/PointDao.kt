@@ -1,7 +1,6 @@
 package com.piusvelte.data.local.dao
 
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import com.piusvelte.data.local.entity.Point
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +12,7 @@ interface PointDao {
     @Query("SELECT * FROM point WHERE id == :id")
     fun get(id: String): Flow<Point>
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(point: Point)
 
     @Update
