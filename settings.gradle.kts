@@ -14,9 +14,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "NWS Weather"
-include(":app")
 include(":api")
+include(":app")
 include(":data")
-include(":data-nws")
-include(":data-local")
+include(":database")
 include(":domain")

@@ -2,14 +2,14 @@ package com.piusvelte.nwsweather.api
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.piusvelte.nwsweather.api.common.adapter.CardinalDirectionAdapter
-import com.piusvelte.nwsweather.api.common.adapter.CoordinateAdapter
-import com.piusvelte.nwsweather.api.common.adapter.TemperatureUnitAdapter
-import com.piusvelte.nwsweather.api.common.model.NwsCardinalDirection
-import com.piusvelte.nwsweather.api.common.model.NwsCoordinate
-import com.piusvelte.nwsweather.api.common.model.NwsTemperatureUnit
-import com.piusvelte.nwsweather.api.gridpoints.NwsGridPointsService
-import com.piusvelte.nwsweather.api.points.NwsPointsService
+import com.piusvelte.nwsweather.api.adapter.CardinalDirectionAdapter
+import com.piusvelte.nwsweather.api.adapter.CoordinateAdapter
+import com.piusvelte.nwsweather.api.adapter.TemperatureUnitAdapter
+import com.piusvelte.nwsweather.api.model.NwsCardinalDirection
+import com.piusvelte.nwsweather.api.model.NwsCoordinate
+import com.piusvelte.nwsweather.api.model.NwsTemperatureUnit
+import com.piusvelte.nwsweather.api.service.NwsGridPointsService
+import com.piusvelte.nwsweather.api.service.NwsPointsService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +21,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object NwsApiModule {
+    @Provides
+    fun providesHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .build()
+    }
+
     @Provides
     fun providesGson(): Gson {
         return GsonBuilder()

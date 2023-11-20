@@ -3,7 +3,7 @@ package com.piusvelte.nwsweather.point
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.piusvelte.domain.point.PointUseCase
+import com.piusvelte.nwsweather.domain.point.PointUseCase
 import com.piusvelte.nwsweather.location.LocationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

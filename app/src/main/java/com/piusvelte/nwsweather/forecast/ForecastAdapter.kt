@@ -6,10 +6,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.model.GlideUrl
-import com.bumptech.glide.load.model.LazyHeaders
-import com.piusvelte.nwsweather.data.gridpoints.model.ForecastPeriod
 import com.piusvelte.nwsweather.databinding.ForecastPeriodBinding
+import com.piusvelte.nwsweather.domain.model.ForecastPeriod
 
 internal class ForecastAdapter : ListAdapter<ForecastPeriod, ForecastViewHolder>(DIFF_UTIL) {
 

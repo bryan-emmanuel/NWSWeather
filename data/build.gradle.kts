@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -24,6 +26,12 @@ android {
 }
 
 dependencies {
+    implementation(libs.dagger.hiltAndroid)
+    ksp(libs.dagger.hiltCompiler)
+
     implementation(platform(libs.androidx.composeBom))
     implementation(libs.androidx.compose.runtime)
+
+    implementation(project(":api"))
+    implementation(project(":database"))
 }

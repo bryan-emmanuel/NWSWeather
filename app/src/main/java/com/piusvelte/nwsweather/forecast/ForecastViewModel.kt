@@ -3,7 +3,7 @@ package com.piusvelte.nwsweather.forecast
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.piusvelte.domain.gridpoint.ForecastUseCase
+import com.piusvelte.nwsweather.domain.gridpoint.ForecastUseCase
 import com.piusvelte.nwsweather.location.LocationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

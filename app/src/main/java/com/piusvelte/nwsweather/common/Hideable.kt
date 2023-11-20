@@ -2,7 +2,7 @@ package com.piusvelte.nwsweather.common
 
 import android.view.View
 import androidx.core.view.isVisible
-import com.piusvelte.domain.common.Hideable
+import com.piusvelte.nwsweather.domain.common.Hideable
 
 fun <V : View, T : Any> V.show(hideable: Hideable<T>, block: V.(T) -> Unit = {}) {
     when (hideable) {

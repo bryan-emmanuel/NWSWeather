@@ -23,8 +23,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -63,29 +65,13 @@ dependencies {
     implementation(libs.dagger.hiltAndroid)
     ksp(libs.dagger.hiltCompiler)
 
-    implementation(platform(libs.okhttp.bom))
-    implementation(libs.okhttp.okhttp)
-    implementation(libs.okhttp.logging)
-
-    implementation(libs.retrofit.retrofit)
-    implementation(libs.retrofit.converterGson)
-
     implementation(libs.bumptech.glide)
     ksp(libs.bumptech.compiler)
-
-    implementation(libs.androidx.roomRuntime)
-    annotationProcessor(libs.androidx.roomCompiler)
-    ksp(libs.androidx.roomCompiler)
-    implementation(libs.androidx.roomKtx)
 
     androidTestImplementation(platform(libs.androidx.composeBom))
     androidTestImplementation(libs.androidx.compose.uiTestJunit)
     debugImplementation(libs.androidx.compose.uiTooling)
     debugImplementation(libs.androidx.compose.uiTestManifest)
 
-    implementation(project(":api"))
-    implementation(project(":data"))
-    implementation(project(":data-nws"))
-    implementation(project(":data-local"))
     implementation(project(":domain"))
 }

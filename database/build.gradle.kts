@@ -3,10 +3,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "com.piusvelte.nwsweather.domain"
+    namespace = "com.piusvelte.nwsweather.database"
     compileSdk = 34
 
     compileOptions {
@@ -31,7 +32,8 @@ dependencies {
     implementation(platform(libs.androidx.composeBom))
     implementation(libs.androidx.compose.runtime)
 
-    implementation(libs.androidx.lifecycle.livedataKtx)
-
-    implementation(project(":data"))
+    implementation(libs.androidx.roomRuntime)
+    annotationProcessor(libs.androidx.roomCompiler)
+    ksp(libs.androidx.roomCompiler)
+    implementation(libs.androidx.roomKtx)
 }
