@@ -36,13 +36,13 @@ internal class PointViewModel @Inject constructor(
         viewModelScope.launch {
             lastLocation.location()
                 .collect {
-                    handle[LOCATION] = it.mapDomain().mapState()
+                    onLocation(it.mapDomain())
                 }
         }
     }
 
-    fun onLocation(latitude: Float, longitude: Float) {
-        handle[LOCATION] = floatArrayOf(latitude, longitude)
+    private fun onLocation(location: GeoLocation) {
+        handle[LOCATION] = location.mapState()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
