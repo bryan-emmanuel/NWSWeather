@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.piusvelte.nwsweather.common.show
+import androidx.lifecycle.asLiveData
 import com.piusvelte.nwsweather.databinding.FragmentForecastBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -35,14 +35,11 @@ class ForecastFragment @Inject constructor() : Fragment() {
             val adapter = ForecastAdapter()
             forecast.adapter = adapter
 
-            viewModel.forecast.observe(viewLifecycleOwner) { periods ->
-                forecast.show(periods) {
-                    adapter.submitList(it)
-                }
-            }
+            viewModel.uiState.asLiveData().observe(viewLifecycleOwner) {
+                loading.isVisible = it.isLoading
 
-            viewModel.isLoading.observe(viewLifecycleOwner) {
-                loading.isVisible = it
+                forecast.isVisible = it.periods.isNotEmpty()
+                adapter.submitList(it.periods)
             }
         }
     }

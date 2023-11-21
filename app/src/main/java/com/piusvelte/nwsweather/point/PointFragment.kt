@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import com.google.android.material.snackbar.Snackbar
-import com.piusvelte.nwsweather.common.show
 import com.piusvelte.nwsweather.databinding.FragmentPointBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -33,35 +33,37 @@ class PointFragment @Inject constructor() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding!!) {
-            viewModel.isLoading.observe(viewLifecycleOwner) { loading.isVisible = it }
+            viewModel.uiState
+                .asLiveData()
+                .observe(viewLifecycleOwner) {
+                    loading.isVisible = it.isLoading
 
-            viewModel.pointId.observe(viewLifecycleOwner) { hideable ->
-                labelId.show(hideable)
-                pointId.show(hideable) {
-                    text = it
+                    labelId.isVisible = it.pointId.isNotEmpty()
+                    pointId.isVisible = it.pointId.isNotEmpty()
+                    pointId.text = it.pointId
+
+                    labelGridId.isVisible = it.pointGridId.isNotEmpty()
+                    pointGridId.isVisible = it.pointGridId.isNotEmpty()
+                    pointGridId.text = it.pointGridId
+
+
+                    labelGridX.isVisible = it.pointGridX != 0
+                    pointGridX.isVisible = it.pointGridX != 0
+                    pointGridX.text = it.pointGridX.toString()
+
+
+                    labelGridY.isVisible = it.pointGridY != 0
+                    pointGridY.isVisible = it.pointGridY != 0
+                    pointGridY.text = it.pointGridY.toString()
+
+                    it.error.consume { msg ->
+                        Snackbar.make(
+                            root,
+                            msg,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-            }
-
-            viewModel.pointGridId.observe(viewLifecycleOwner) { hideable ->
-                labelGridId.show(hideable)
-                pointGridId.show(hideable) { text = it }
-            }
-
-            viewModel.pointGridX.observe(viewLifecycleOwner) { hideable ->
-                labelGridX.show(hideable)
-                pointGridX.show(hideable) {
-                    text = it.toString()
-                }
-            }
-
-            viewModel.pointGridY.observe(viewLifecycleOwner) { hideable ->
-                labelGridY.show(hideable)
-                pointGridY.show(hideable) {
-                    text = it.toString()
-                }
-            }
-
-            viewModel.error.observe(viewLifecycleOwner) { it.consume { Snackbar.make(root, it, Snackbar.LENGTH_SHORT).show() }}
         }
     }
 
