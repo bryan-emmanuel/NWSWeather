@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object NwsApiModule {
+
     @Provides
     fun providesHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()

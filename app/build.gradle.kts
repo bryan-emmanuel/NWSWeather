@@ -37,7 +37,6 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        viewBinding = true
         compose = true
     }
     composeOptions {
@@ -67,7 +66,8 @@ dependencies {
 
     implementation(libs.bumptech.glide)
     implementation(libs.bumptech.glideCompose)
-    ksp(libs.bumptech.compiler)
+    implementation(libs.bumptech.glideOkhttp)
+    ksp(libs.bumptech.glideKsp)
 
     androidTestImplementation(platform(libs.androidx.composeBom))
     androidTestImplementation(libs.androidx.compose.uiTestJunit)
