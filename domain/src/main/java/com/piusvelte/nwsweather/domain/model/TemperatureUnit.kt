@@ -5,3 +5,9 @@ enum class TemperatureUnit {
     FAHRENHEIT,
     UNKNOWN,
 }
+
+fun String.mapTemperatureUnit(): TemperatureUnit = when (this) {
+    "C" -> TemperatureUnit.CELSIUS
+    "F" -> TemperatureUnit.FAHRENHEIT
+    else -> TemperatureUnit.UNKNOWN
+}

@@ -20,7 +20,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class LocationUseCase @Inject constructor(
+internal class GetLocationUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
     permissionGrantUseCase: PermissionGrantUseCase,
 ) {
@@ -70,13 +70,13 @@ internal class LocationUseCase @Inject constructor(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun location(): Flow<Location> {
+    operator fun invoke(): Flow<Location> {
         return permissionGranted.flatMapLatest {
             if (it) {
                 val client = LocationServices.getFusedLocationProviderClient(context)
                 merge(lastLocation(client), locationUpdates(client))
             } else {
-                flow { }
+                emptyFlow()
             }
         }.filterNotNull()
     }

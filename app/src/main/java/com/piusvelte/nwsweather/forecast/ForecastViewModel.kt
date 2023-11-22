@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.piusvelte.nwsweather.domain.gridpoint.ForecastState
 import com.piusvelte.nwsweather.domain.gridpoint.GetForecastUseCase
 import com.piusvelte.nwsweather.domain.model.GeoLocation
-import com.piusvelte.nwsweather.location.LocationUseCase
+import com.piusvelte.nwsweather.location.GetLocationUseCase
 import com.piusvelte.nwsweather.mapper.mapDomain
 import com.piusvelte.nwsweather.mapper.mapLocation
 import com.piusvelte.nwsweather.mapper.mapState
@@ -25,7 +25,7 @@ import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 internal class ForecastViewModel @Inject constructor(
-    private val lastLocation: LocationUseCase,
+    private val getLocation: GetLocationUseCase,
     private val getForecast: GetForecastUseCase,
     private val handle: SavedStateHandle,
 ) : ViewModel() {
@@ -34,7 +34,7 @@ internal class ForecastViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            lastLocation.location()
+            getLocation()
                 .collect {
                     handle[LOCATION] = it.mapDomain().mapState()
                 }

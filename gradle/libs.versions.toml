@@ -13,8 +13,9 @@ androidx-navigationCompose = "2.7.5"
 androidx-room = "2.6.0"
 androidx-test-ext-junit = "1.1.5"
 bumptech-glide = "4.13.2"
+bumptech-glide-compose = "1.0.0-beta01"
 dagger-hilt = "2.48.1"
-google-material = "1.6.1"
+google-material = "1.10.0"
 google-playServices = "21.0.1"
 jetbrains-kotlinx-coroutines-play-services = "1.7.3"
 kotlin = "1.9.20"
@@ -37,17 +38,17 @@ androidx-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-coreKtx" }
 androidx-espresso-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-expresso-espressoCore" }
-androidx-fragmentKtx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "androidx-fragmentKtx" }
 androidx-hiltNavigationCompose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidx-hiltNavigationCompose" }
-androidx-lifecycle-runtimeKtx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
-androidx-lifecycle-livedataKtx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodelKtx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtimeKtx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-navigationCompose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigationCompose" }
 androidx-roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
 androidx-roomKtx = { group = "androidx.room", name = "room-ktx", version.ref = "androidx-room" }
 androidx-roomRuntime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 bumptech-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "bumptech-glide" }
+bumptech-glideCompose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "bumptech-glide-compose" }
 bumptech-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "bumptech-glide" }
 dagger-hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt" }
 dagger-hiltCompiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "dagger-hilt" }

@@ -1,24 +1,19 @@
 package com.piusvelte.nwsweather
 
 import android.Manifest
-import android.annotation.TargetApi
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.MaterialTheme
 import androidx.core.content.ContextCompat
-import com.piusvelte.nwsweather.di.FragmentFactoryInstaller
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-
-    @Inject
-    internal lateinit var installer: FragmentFactoryInstaller
+class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -26,7 +21,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContent {
+            MaterialTheme {
+                MainScreen()
+            }
+        }
 
         permissionsLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) {
@@ -35,10 +34,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) checkLocationPermission()
+        checkLocationPermission()
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     private fun checkLocationPermission() {
         val grant =
             ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)

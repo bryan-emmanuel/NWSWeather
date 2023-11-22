@@ -51,10 +51,10 @@ dependencies {
     implementation(platform(libs.androidx.composeBom))
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.fragmentKtx)
-    implementation(libs.androidx.lifecycle.runtimeKtx)
-    implementation(libs.androidx.lifecycle.livedataKtx)
+    implementation(libs.androidx.hiltNavigationCompose)
+    implementation(libs.androidx.lifecycle.compose)
     implementation(libs.androidx.lifecycle.viewmodelKtx)
+    implementation(libs.androidx.lifecycle.runtimeKtx)
     implementation(libs.google.material)
     implementation(libs.google.playServicesLocation)
     implementation(libs.jetbrains.kotlinx.coroutinesPlayServices)
@@ -66,6 +66,7 @@ dependencies {
     ksp(libs.dagger.hiltCompiler)
 
     implementation(libs.bumptech.glide)
+    implementation(libs.bumptech.glideCompose)
     ksp(libs.bumptech.compiler)
 
     androidTestImplementation(platform(libs.androidx.composeBom))

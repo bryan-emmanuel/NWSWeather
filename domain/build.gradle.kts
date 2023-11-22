@@ -31,7 +31,5 @@ dependencies {
     implementation(platform(libs.androidx.composeBom))
     implementation(libs.androidx.compose.runtime)
 
-    implementation(libs.androidx.lifecycle.livedataKtx)
-
     implementation(project(":data"))
 }
