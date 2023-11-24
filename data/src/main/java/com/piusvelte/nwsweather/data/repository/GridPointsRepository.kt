@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GridPointsRepository @Inject constructor(
     private val service: NwsGridPointsService,
     private val dispatcher: CoroutineDispatcher,

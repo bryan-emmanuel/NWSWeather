@@ -4,12 +4,15 @@ import com.piusvelte.nwsweather.data.dto.PointDto
 import com.piusvelte.nwsweather.data.dto.ResourceDto
 import com.piusvelte.nwsweather.data.repository.GridPointsRepository
 import com.piusvelte.nwsweather.data.repository.PointsRepository
+import com.piusvelte.nwsweather.domain.mapper.mapDto
 import com.piusvelte.nwsweather.domain.mapper.mapPeriods
 import com.piusvelte.nwsweather.domain.model.GeoLocation
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class GetForecastUseCase @Inject constructor(
     private val pointsRepository: PointsRepository,
     private val repository: GridPointsRepository,
@@ -17,7 +20,7 @@ class GetForecastUseCase @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     operator fun invoke(location: GeoLocation): Flow<ForecastState> =
-        pointsRepository.getPoint(location.latitude, location.longitude)
+        pointsRepository.getPoint(location.mapDto())
             .filterIsInstance<ResourceDto.Success<PointDto>>()
             .flatMapLatest {
                 val properties = it.data.properties

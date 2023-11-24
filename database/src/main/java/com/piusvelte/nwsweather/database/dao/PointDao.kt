@@ -10,7 +10,7 @@ interface PointDao {
     fun getAll(): Flow<List<PointEntity>>
 
     @Query("SELECT * FROM points WHERE id == :id")
-    fun get(id: String): Flow<PointEntity>
+    fun get(id: String): Flow<PointEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(point: PointEntity)

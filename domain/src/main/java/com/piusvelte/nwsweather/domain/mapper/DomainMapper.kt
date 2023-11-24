@@ -1,11 +1,13 @@
 package com.piusvelte.nwsweather.domain.mapper
 
+import com.piusvelte.nwsweather.data.dto.CoordinateDto
 import com.piusvelte.nwsweather.data.dto.ForecastDto
 import com.piusvelte.nwsweather.data.dto.ForecastPeriodDto
 import com.piusvelte.nwsweather.data.dto.PointDto
 import com.piusvelte.nwsweather.data.dto.PropertiesDto
 import com.piusvelte.nwsweather.data.dto.TemperatureUnitDto
 import com.piusvelte.nwsweather.domain.model.ForecastPeriod
+import com.piusvelte.nwsweather.domain.model.GeoLocation
 import com.piusvelte.nwsweather.domain.model.Point
 import com.piusvelte.nwsweather.domain.model.Properties
 import com.piusvelte.nwsweather.domain.model.TemperatureUnit
@@ -36,4 +38,9 @@ fun ForecastPeriodDto.mapDomain() = ForecastPeriod(
     temperature = temperature,
     temperatureUnit = temperatureUnit.mapDomain(),
     shortForecast = shortForecast,
+)
+
+fun GeoLocation.mapDto() = CoordinateDto(
+    latitude = latitude,
+    longitude = longitude,
 )

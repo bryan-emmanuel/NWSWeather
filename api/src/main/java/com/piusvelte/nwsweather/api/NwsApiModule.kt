@@ -17,18 +17,21 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NwsApiModule {
 
     @Provides
+    @Singleton
     fun providesHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .build()
     }
 
     @Provides
+    @Singleton
     fun providesGson(): Gson {
         return GsonBuilder()
             .registerTypeAdapter(NwsCardinalDirection::class.java, CardinalDirectionAdapter())
@@ -38,6 +41,7 @@ object NwsApiModule {
     }
 
     @Provides
+    @Singleton
     fun providesRetrofit(client: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.weather.gov/")
@@ -47,11 +51,13 @@ object NwsApiModule {
     }
 
     @Provides
+    @Singleton
     fun providesPointsService(retrofit: Retrofit): NwsPointsService {
         return retrofit.create(NwsPointsService::class.java)
     }
 
     @Provides
+    @Singleton
     fun providesGridPointsService(retrofit: Retrofit): NwsGridPointsService {
         return retrofit.create(NwsGridPointsService::class.java)
     }
