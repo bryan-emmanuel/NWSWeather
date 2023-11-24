@@ -15,8 +15,8 @@ import com.piusvelte.nwsweather.ui.NoOp
 
 @Composable
 internal fun ForecastScreen(
-    viewModel: ForecastViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
+    viewModel: ForecastViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -28,8 +28,8 @@ internal fun ForecastScreen(
 
 @Composable
 fun ForecastScreen(
-    state: ForecastUiState,
     modifier: Modifier = Modifier,
+    state: ForecastUiState,
 ) {
     if (state.isLoading) {
         CircularProgressIndicator()
@@ -61,4 +61,5 @@ fun ForecastScreenPreview() {
         ),
         error = NoOp,
     )
+    ForecastScreen(state = state)
 }

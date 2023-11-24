@@ -36,7 +36,8 @@ androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-uiGraphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-compose-uiTestJunit = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-uiTestManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-uiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-coreKtx" }
 androidx-espresso-espressoCore = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-expresso-espressoCore" }

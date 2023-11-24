@@ -12,8 +12,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 internal fun PointScreen(
-    viewModel: PointViewModel = hiltViewModel(),
     modifier: Modifier = Modifier,
+    viewModel: PointViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -25,8 +25,8 @@ internal fun PointScreen(
 
 @Composable
 fun PointScreen(
-    state: PointUiState,
     modifier: Modifier = Modifier,
+    state: PointUiState,
 ) {
     Column {
         if (state.isLoading) {
@@ -44,5 +44,5 @@ fun PointScreen(
 @Preview
 fun PointScreenPreview() {
     val state = PointUiState()
-    PointScreen(state)
+    PointScreen(state = state)
 }

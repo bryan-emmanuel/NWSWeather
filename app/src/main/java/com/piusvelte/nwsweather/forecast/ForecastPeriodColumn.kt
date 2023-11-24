@@ -17,8 +17,8 @@ import com.piusvelte.nwsweather.domain.model.mapTemperatureUnit
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ForecastPeriodColumn(
-    state: ForecastPeriod,
     modifier: Modifier = Modifier.width(96.dp),
+    state: ForecastPeriod,
 ) {
     Column {
         Text(text = state.name)
