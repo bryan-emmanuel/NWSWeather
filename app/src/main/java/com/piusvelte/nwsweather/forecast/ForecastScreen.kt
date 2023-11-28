@@ -58,6 +58,14 @@ fun ForecastScreenPreview() {
                 temperatureUnit = "F".mapTemperatureUnit(),
                 shortForecast = "Chance Showers And Thunderstorms",
             ),
+            ForecastPeriod(
+                number = 0,
+                name = "Tomorrow",
+                icon = "",
+                temperature = 68F,
+                temperatureUnit = "F".mapTemperatureUnit(),
+                shortForecast = "Sunny",
+            ),
         ),
         error = NoOp,
     )

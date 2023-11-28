@@ -18,8 +18,8 @@ internal fun PointScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     PointScreen(
-        state = state,
         modifier = modifier,
+        state = state,
     )
 }
 
@@ -43,6 +43,11 @@ fun PointScreen(
 @Composable
 @Preview
 fun PointScreenPreview() {
-    val state = PointUiState()
+    val state = PointUiState(
+        pointId = "0",
+        pointGridId = "0",
+        pointGridX = 1,
+        pointGridY = 1,
+    )
     PointScreen(state = state)
 }
