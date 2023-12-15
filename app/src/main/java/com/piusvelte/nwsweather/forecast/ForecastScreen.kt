@@ -1,6 +1,6 @@
 package com.piusvelte.nwsweather.forecast
 
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -35,9 +35,12 @@ fun ForecastScreen(
         CircularProgressIndicator()
     } else {
         if (state.periods.isNotEmpty()) {
-            LazyRow() {
+            LazyColumn {
                 items(items = state.periods) {
-                    ForecastPeriodColumn(state = it)
+                    ForecastPeriodColumn(
+                        modifier = modifier,
+                        state = it,
+                    )
                 }
             }
         }

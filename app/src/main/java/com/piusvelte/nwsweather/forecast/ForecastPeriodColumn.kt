@@ -1,8 +1,8 @@
 package com.piusvelte.nwsweather.forecast
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,20 +26,22 @@ fun ForecastPeriodColumn(
     state: ForecastPeriod,
 ) {
     ElevatedCard(
-        modifier = modifier
-            .height(240.dp)
-            .width(112.dp),
+        modifier = modifier,
     ) {
-        Column(
+        Row(
             modifier = modifier
-                .fillMaxHeight()
+                .fillMaxWidth()
                 .padding(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(text = state.name, minLines = 2)
             Column(
-                modifier = modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = modifier,
+                verticalArrangement = Arrangement.SpaceBetween,
             ) {
+                Text(text = state.name)
+                Text(text = state.shortForecast)
+            }
+            Row {
                 GlideImage(
                     model = state.icon,
                     contentDescription = "Forecast icon",
@@ -47,12 +49,13 @@ fun ForecastPeriodColumn(
                         .width(72.dp)
                         .height(72.dp)
                 )
+                Row(
+                    modifier = modifier.align(Alignment.CenterVertically),
+                ) {
+                    Text(text = state.temperature.toString())
+                    Text(text = state.temperatureUnit.toString().substring(0, 1))
+                }
             }
-            Row {
-                Text(text = state.temperature.toString())
-                Text(text = state.temperatureUnit.toString().substring(0, 1))
-            }
-            Text(text = state.shortForecast)
         }
     }
 }
