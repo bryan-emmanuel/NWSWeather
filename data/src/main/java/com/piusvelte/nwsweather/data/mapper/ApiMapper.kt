@@ -4,134 +4,124 @@ import com.piusvelte.nwsweather.api.model.NwsCardinalDirection
 import com.piusvelte.nwsweather.api.model.NwsCoordinate
 import com.piusvelte.nwsweather.api.model.NwsForecast
 import com.piusvelte.nwsweather.api.model.NwsForecastPeriod
-import com.piusvelte.nwsweather.api.model.NwsForecastProperties
-import com.piusvelte.nwsweather.api.model.NwsGeometryPoint
 import com.piusvelte.nwsweather.api.model.NwsGeometryPolygon
 import com.piusvelte.nwsweather.api.model.NwsPoint
-import com.piusvelte.nwsweather.api.model.NwsPointProperties
-import com.piusvelte.nwsweather.api.model.NwsRelativeLocation
 import com.piusvelte.nwsweather.api.model.NwsTemperatureUnit
-import com.piusvelte.nwsweather.api.model.NwsUnitValue
-import com.piusvelte.nwsweather.data.dto.CardinalDirectionDto
-import com.piusvelte.nwsweather.data.dto.CoordinateDto
-import com.piusvelte.nwsweather.data.dto.ForecastDto
-import com.piusvelte.nwsweather.data.dto.ForecastPeriodDto
-import com.piusvelte.nwsweather.data.dto.ForecastPropertiesDto
-import com.piusvelte.nwsweather.data.dto.GeometryPointDto
-import com.piusvelte.nwsweather.data.dto.GeometryPolygonDto
-import com.piusvelte.nwsweather.data.dto.PointDto
-import com.piusvelte.nwsweather.data.dto.PropertiesDto
-import com.piusvelte.nwsweather.data.dto.RelativeLocationDto
-import com.piusvelte.nwsweather.data.dto.TemperatureUnitDto
-import com.piusvelte.nwsweather.data.dto.UnitValueDto
+import com.piusvelte.nwsweather.database.entity.CoordinateContainerEntity
+import com.piusvelte.nwsweather.database.entity.CoordinateEntity
+import com.piusvelte.nwsweather.database.entity.CoordinateWithChildren
+import com.piusvelte.nwsweather.database.entity.ForecastEntity
+import com.piusvelte.nwsweather.database.entity.ForecastPeriodEntity
+import com.piusvelte.nwsweather.database.entity.ForecastWithRelations
+import com.piusvelte.nwsweather.database.entity.PointEntity
 
-fun NwsCoordinate.mapDto() = CoordinateDto(
-    latitude,
-    longitude,
-)
-
-fun NwsGeometryPoint.mapDto() = GeometryPointDto(
-    type,
-    coordinates.mapDto(),
-)
-
-fun NwsGeometryPolygon.mapDto() = GeometryPolygonDto(
-    type,
-    coordinates.map { nested -> nested.map { it.mapDto() } }
-)
-
-fun NwsRelativeLocation.mapDto() = RelativeLocationDto(
-    type = type,
-    geometry = geometry.mapDto(),
-)
-
-fun NwsPointProperties.mapDto() = PropertiesDto(
+fun NwsPoint.mapEntity() = PointEntity(
     id = id,
     type = type,
-    cwa = cwa,
-    forecastOffice = forecastOffice,
-    gridId = gridId,
-    gridX = gridX,
-    gridY = gridY,
-    forecast = forecast,
-    forecastHourly = forecastHourly,
-    forecastGridData = forecastGridData,
-    observationStations = observationStations,
-    relativeLocation = relativeLocation.mapDto(),
-    forecastZone = forecastZone,
-    county = county,
-    fireWeatherZone = fireWeatherZone,
-    timeZone = timeZone,
-    radarStation = radarStation,
+    geometryType = geometry.type,
+    geometryCoordinateLatitude = geometry.coordinates.latitude,
+    geometryCoordinateLongitude = geometry.coordinates.longitude,
+    propertyId = properties.id,
+    propertyType = properties.type,
+    propertyCwa = properties.cwa,
+    propertyForecastOffice = properties.forecastOffice,
+    propertyGridId = properties.gridId,
+    propertyGridX = properties.gridX,
+    propertyGridY = properties.gridY,
+    propertyForecast = properties.forecast,
+    propertyForecastHourly = properties.forecastHourly,
+    propertyForecastGridData = properties.forecastGridData,
+    propertyObservationStations = properties.observationStations,
+    propertyRelativeLocationType = properties.relativeLocation.type,
+    propertyRelativeLocationGeometryType = properties.relativeLocation.geometry.type,
+    propertyRelativeLocationGeometryCoordinateLatitude = properties.relativeLocation.geometry.coordinates.latitude,
+    propertyRelativeLocationGeometryCoordinateLongitude = properties.relativeLocation.geometry.coordinates.longitude,
+    propertyForecastZone = properties.forecastZone,
+    propertyCounty = properties.county,
+    propertyFireWeatherZone = properties.fireWeatherZone,
+    propertyTimeZone = properties.timeZone,
+    propertyRadarStation = properties.radarStation,
 )
 
-fun NwsPoint.mapDto() = PointDto(
-    id = id,
-    type = type,
-    geometry = geometry.mapDto(),
-    properties = properties.mapDto(),
+fun NwsForecast.mapEntity() = ForecastWithRelations(
+    forecast = mapForecast(),
+    coordinates = geometry.mapCoordinates(),
+    periods = mapPeriods(),
 )
 
+fun NwsCoordinate.mapEntity() = CoordinateEntity(
+    id = 0,
+    coordinateId = 0,
+    latitude = latitude,
+    longitude = longitude,
+)
 
-fun NwsTemperatureUnit.mapDto() = when (this) {
-    NwsTemperatureUnit.CELSIUS -> TemperatureUnitDto.CELSIUS
-    NwsTemperatureUnit.FAHRENHEIT -> TemperatureUnitDto.FAHRENHEIT
-    NwsTemperatureUnit.UNKNOWN -> TemperatureUnitDto.UNKNOWN
+fun NwsTemperatureUnit.mapEntity() = when (this) {
+    NwsTemperatureUnit.CELSIUS -> "celsius"
+    NwsTemperatureUnit.FAHRENHEIT -> "fahrenheit"
+    NwsTemperatureUnit.UNKNOWN -> "unknown"
 }
 
-fun NwsUnitValue.mapDto() = UnitValueDto(
-    unitCode,
-    value,
-)
-
-fun NwsForecast.mapDto() = ForecastDto(
+fun NwsForecast.mapForecast() = ForecastEntity(
+    id = 0,
     type = type,
-    geometry = geometry.mapDto(),
-    properties = properties.mapDto(),
+    geometryType = geometry.type,
+    updated = properties.updated,
+    units = properties.units,
+    forecastGenerator = properties.forecastGenerator,
+    generatedAt = properties.generatedAt,
+    updateTime = properties.updateTime,
+    validTimes = properties.validTimes,
+    elevationUnitCode = properties.elevation.unitCode,
+    elevationValue = properties.elevation.value,
 )
 
-fun NwsForecastPeriod.mapDto() = ForecastPeriodDto(
+fun NwsGeometryPolygon.mapCoordinates() =
+    coordinates.map { container ->
+        CoordinateWithChildren(
+            containerEntity = CoordinateContainerEntity(
+                id = 0,
+                forecastId = 0,
+            ),
+            coordinates = container.map { it.mapEntity() },
+        )
+    }
+
+fun NwsForecast.mapPeriods() = properties.periods.map { it.mapEntity() }
+
+fun NwsForecastPeriod.mapEntity() = ForecastPeriodEntity(
+    id = 0,
+    forecastId = 0,
     number = number,
     name = name,
     startTime = startTime,
     endTime = endTime,
     isDaytime = isDaytime,
     temperature = temperature,
-    temperatureUnit = temperatureUnit.mapDto(),
+    temperatureUnit = temperatureUnit.mapEntity(),
     temperatureTrend = temperatureTrend,
     windSpeed = windSpeed,
-    windDirection = windDirection.mapDto(),
+    windDirection = windDirection.mapEntity(),
     icon = icon,
     shortForecast = shortForecast,
     detailedForecast = detailedForecast,
 )
 
-fun NwsForecastProperties.mapDto() = ForecastPropertiesDto(
-    updated = updated,
-    units = units,
-    forecastGenerator = forecastGenerator,
-    generatedAt = generatedAt,
-    updateTime = updateTime,
-    validTimes = validTimes,
-    elevation = elevation.mapDto(),
-    periods = periods.map { it.mapDto() },
-)
-
-fun NwsCardinalDirection.mapDto() = when (this) {
-    NwsCardinalDirection.N -> CardinalDirectionDto.NORTH
-    NwsCardinalDirection.NNE -> CardinalDirectionDto.NORTH_NORTH_EAST
-    NwsCardinalDirection.NE -> CardinalDirectionDto.NORTH_EAST
-    NwsCardinalDirection.ENE -> CardinalDirectionDto.EAST_NORTH_EAST
-    NwsCardinalDirection.E -> CardinalDirectionDto.EAST
-    NwsCardinalDirection.ESE -> CardinalDirectionDto.EAST_SOUTH_EAST
-    NwsCardinalDirection.SE -> CardinalDirectionDto.SOUTH_EAST
-    NwsCardinalDirection.SSE -> CardinalDirectionDto.SOUTH_SOUTH_EAST
-    NwsCardinalDirection.S -> CardinalDirectionDto.SOUTH
-    NwsCardinalDirection.SSW -> CardinalDirectionDto.SOUTH_SOUTH_WEST
-    NwsCardinalDirection.SW -> CardinalDirectionDto.SOUTH_WEST
-    NwsCardinalDirection.WSW -> CardinalDirectionDto.WEST_SOUTH_WEST
-    NwsCardinalDirection.W -> CardinalDirectionDto.WEST
-    NwsCardinalDirection.WNW -> CardinalDirectionDto.WEST_NORTH_WEST
-    NwsCardinalDirection.NW -> CardinalDirectionDto.NORTH_WEST
-    NwsCardinalDirection.NNW -> CardinalDirectionDto.NORTH_NORTH_WEST
+fun NwsCardinalDirection.mapEntity() = when (this) {
+    NwsCardinalDirection.N -> "north"
+    NwsCardinalDirection.NNE -> "north_north_east"
+    NwsCardinalDirection.NE -> "north_east"
+    NwsCardinalDirection.ENE -> "east_north_east"
+    NwsCardinalDirection.E -> "east"
+    NwsCardinalDirection.ESE -> "east_south_east"
+    NwsCardinalDirection.SE -> "south_east"
+    NwsCardinalDirection.SSE -> "south_south_east"
+    NwsCardinalDirection.S -> "south"
+    NwsCardinalDirection.SSW -> "south_south_west"
+    NwsCardinalDirection.SW -> "south_west"
+    NwsCardinalDirection.WSW -> "west_south_west"
+    NwsCardinalDirection.W -> "west"
+    NwsCardinalDirection.WNW -> "west_north_west"
+    NwsCardinalDirection.NW -> "north_west"
+    NwsCardinalDirection.NNW -> "north_north_west"
 }

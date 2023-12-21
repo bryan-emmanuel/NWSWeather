@@ -79,5 +79,6 @@ internal class GetLocationUseCase @Inject constructor(
                 emptyFlow()
             }
         }.filterNotNull()
+            .distinctUntilChanged { old, new -> old.longitude == new.longitude && old.latitude == new.latitude }
     }
 }

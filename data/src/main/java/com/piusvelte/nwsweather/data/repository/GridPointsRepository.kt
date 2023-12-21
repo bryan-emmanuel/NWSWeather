@@ -4,6 +4,11 @@ import com.piusvelte.nwsweather.api.service.NwsGridPointsService
 import com.piusvelte.nwsweather.data.dto.ForecastDto
 import com.piusvelte.nwsweather.data.dto.ResourceDto
 import com.piusvelte.nwsweather.data.mapper.mapDto
+import com.piusvelte.nwsweather.data.mapper.mapEntity
+import com.piusvelte.nwsweather.data.mapper.mapForecast
+import com.piusvelte.nwsweather.database.dao.PointDao
+import com.piusvelte.nwsweather.database.entity.CoordinateContainerEntity
+import com.piusvelte.nwsweather.database.entity.CoordinateWithChildren
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,6 +18,7 @@ import javax.inject.Singleton
 
 @Singleton
 class GridPointsRepository @Inject constructor(
+    private val pointDao: PointDao,
     private val service: NwsGridPointsService,
     private val dispatcher: CoroutineDispatcher,
 ) {
@@ -23,7 +29,9 @@ class GridPointsRepository @Inject constructor(
 
             try {
                 val forecast = service.forecast(office, gridX, gridY)
-                val dto = forecast.mapDto()
+                val entity = forecast.mapEntity()
+                // TODO insert entity, and observe flow from dao
+                val dto = entity.mapDto()
                 emit(ResourceDto.Success(dto))
             } catch (e: Exception) {
                 emit(ResourceDto.Error(e))

@@ -2,6 +2,7 @@ package com.piusvelte.nwsweather.database
 
 import android.content.Context
 import androidx.room.Room
+import com.piusvelte.nwsweather.database.dao.ForecastDao
 import com.piusvelte.nwsweather.database.dao.PointDao
 import dagger.Module
 import dagger.Provides
@@ -20,7 +21,15 @@ internal object DatabaseModule {
             context,
             NwsDatabase::class.java,
             "nws-database",
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesForecastDao(db: NwsDatabase): ForecastDao {
+        return db.forecastDao()
     }
 
     @Provides

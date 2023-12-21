@@ -30,7 +30,7 @@ internal class ForecastViewModel @Inject constructor(
     private val handle: SavedStateHandle,
 ) : ViewModel() {
 
-    val location = handle.getStateFlow(LOCATION, INITIAL_LOCATION.mapState())
+    private val location = handle.getStateFlow(LOCATION, INITIAL_LOCATION.mapState())
 
     init {
         viewModelScope.launch {
