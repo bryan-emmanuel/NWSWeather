@@ -21,7 +21,7 @@ import com.piusvelte.nwsweather.domain.model.mapTemperatureUnit
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ForecastPeriodColumn(
+fun ForecastPeriodCard(
     modifier: Modifier = Modifier,
     state: ForecastPeriod,
 ) {
@@ -31,11 +31,11 @@ fun ForecastPeriodColumn(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column(
-                modifier = modifier,
+                modifier = modifier.weight(1F),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(text = state.name)
@@ -50,7 +50,9 @@ fun ForecastPeriodColumn(
                         .height(72.dp)
                 )
                 Row(
-                    modifier = modifier.align(Alignment.CenterVertically),
+                    modifier = modifier
+                        .align(Alignment.CenterVertically)
+                        .padding(start = 16.dp),
                 ) {
                     Text(text = state.temperature.toString())
                     Text(text = state.temperatureUnit.toString().substring(0, 1))
@@ -71,5 +73,5 @@ fun ForecastPeriodColumnPreview() {
         temperatureUnit = "F".mapTemperatureUnit(),
         shortForecast = "Chance Showers And Thunderstorms",
     )
-    ForecastPeriodColumn(state = state)
+    ForecastPeriodCard(state = state)
 }
