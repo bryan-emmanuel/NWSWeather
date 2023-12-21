@@ -66,7 +66,6 @@ class PointsRepository @Inject constructor(
                     ResourceDto.Success(it.mapDto())
                 } else {
                     refresh.emit(coordinate)
-                    //e: kotlinx.coroutines.flow.internal.ChildCancelledException: Child of the scoped flow was cancelled
                     null
                 }
             }.filterNotNull()
