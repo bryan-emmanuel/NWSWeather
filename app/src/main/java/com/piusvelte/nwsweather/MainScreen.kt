@@ -14,9 +14,3 @@ fun MainScreen(
         ForecastScreen(modifier = modifier)
     }
 }
-
-@Composable
-@Preview
-fun MainScreenPreview() {
-    MainScreen()
-}
