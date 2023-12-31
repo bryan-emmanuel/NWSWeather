@@ -1,4 +1,4 @@
-package com.piusvelte.nwsweather.domain.gridpoint
+package com.piusvelte.nwsweather.domain.forecast
 
 import com.piusvelte.nwsweather.data.dto.PointDto
 import com.piusvelte.nwsweather.data.dto.ResourceDto

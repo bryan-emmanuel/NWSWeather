@@ -3,8 +3,8 @@ package com.piusvelte.nwsweather.forecast
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.piusvelte.nwsweather.domain.gridpoint.ForecastState
-import com.piusvelte.nwsweather.domain.gridpoint.GetForecastUseCase
+import com.piusvelte.nwsweather.domain.forecast.ForecastState
+import com.piusvelte.nwsweather.domain.forecast.GetForecastUseCase
 import com.piusvelte.nwsweather.domain.model.GeoLocation
 import com.piusvelte.nwsweather.location.GetLocationUseCase
 import com.piusvelte.nwsweather.mapper.mapDomain

@@ -18,7 +18,7 @@ import com.piusvelte.nwsweather.database.entity.PointEntity
         ForecastPeriodEntity::class,
         PointEntity::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = false,
 )
 abstract class NwsDatabase : RoomDatabase() {

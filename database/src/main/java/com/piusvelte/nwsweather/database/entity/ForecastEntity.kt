@@ -7,6 +7,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "forecasts")
 data class ForecastEntity(
     @PrimaryKey(autoGenerate = true) val id: Long,
+    @ColumnInfo(name = "office") val office: String,
+    @ColumnInfo(name = "grid_x") val gridX: Int,
+    @ColumnInfo(name = "grid_y") val gridY: Int,
     @ColumnInfo(name = "type") val type: String,
     @ColumnInfo(name = "geometry_type") val geometryType: String,
     @ColumnInfo(name = "updated") val updated: String,

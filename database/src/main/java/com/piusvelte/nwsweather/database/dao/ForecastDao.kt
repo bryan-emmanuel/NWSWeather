@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.Flow
 abstract class ForecastDao {
 
     @Transaction
-    @Query("SELECT * FROM forecasts WHERE id == :id")
-    abstract fun get(id: String): Flow<ForecastWithRelations?>
+    @Query("SELECT * FROM forecasts WHERE office == :office AND grid_x == :gridX AND grid_y == :gridY LIMIT 1")
+    abstract fun get(office: String, gridX: Int, gridY: Int): Flow<ForecastWithRelations?>
 
     suspend fun insert(forecast: ForecastWithRelations) {
         val forecastId = insert(forecast.forecast)
